@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/kristinag9/ChatApp/issues"
   },
-  "homepage": "https://github.com/kristinag9/ChatApp#readme"
+  "homepage": "https://github.com/kristinag9/ChatApp#readme",
+  "dependencies": {
+    "firebase": "^9.6.3"
+  }
 }
