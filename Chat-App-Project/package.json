@@ -1,0 +1,19 @@
+{
+  "name": "chat-app-project",
+  "version": "1.0.0",
+  "description": "This is a chat app for the Front-End Web development course at FMI.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kristinag9/ChatApp.git"
+  },
+  "author": "Kristina Tsekova",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kristinag9/ChatApp/issues"
+  },
+  "homepage": "https://github.com/kristinag9/ChatApp#readme"
+}
