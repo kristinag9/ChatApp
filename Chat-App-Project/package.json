@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/kristinag9/ChatApp#readme",
   "dependencies": {
-    "firebase": "^9.6.3"
+    "firebase": "^9.6.3",
+    "sweetalert2": "^11.3.5"
   }
 }

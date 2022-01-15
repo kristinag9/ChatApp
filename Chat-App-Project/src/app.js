@@ -20,3 +20,40 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 // const analytics = getAnalytics(app);
 console.log(app);
+
+// Validate registration
+const form = document.querySelector(".register-form");
+const userName = document.getElementById("username");
+const email = document.getElementById("email");
+const password = document.getElementById("password");
+const confirmedPassword = document.getElementById("confirm-pass");
+
+const submitBtn = document.getElementById("submit");
+submitBtn.addEventListener(("click"), (event) => {
+  // userName.value.trim();
+  // email.value.trim();
+  // password.value.trim();
+  // confirmedPassword.value.trim();
+
+  if(userName.value === '' ||  email.value === '' || password.value === '' || confirmedPassword.value === '') {
+    // Swal.fire("Please, fill all fields!");
+    alert("Please, fill in all fields!");
+    return;
+  }
+
+  // if (!email.value.matches("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")) {
+  //   alert("Invalid email!");
+  //   return;
+  // }
+
+  if (password.value.length < 6 || !password.value.includes('.') && !password.value.includes('!')) {
+    alert('Weak password');
+    return;
+  }
+
+  if (password.value != confirmedPassword.value) {
+    alert('Different passwords');
+    return;
+  }
+
+});
