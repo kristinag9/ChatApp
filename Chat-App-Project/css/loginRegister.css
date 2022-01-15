@@ -29,14 +29,12 @@
 
  #main-title {
    font-weight: normal;
-   margin-bottom: 1rem;
    color: #4c3eca;
  }
 
  #subtitle {
    font-weight: normal;
    color: #848694;
-   margin-bottom: 3rem;
  }
 
  .text-input {
@@ -94,4 +92,8 @@
  .login-link:hover,
  .login-link:focus {
   text-decoration: underline;
+}
+
+.hidden {
+  display: none;
 }
