@@ -1,0 +1,94 @@
+* {
+   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+ }
+
+body {
+   background: linear-gradient(0deg, rgba(217,187,241,1) 0%, rgba(150,36,237,1) 100%);
+   margin: 0;
+}
+
+.wrapper {
+   display: grid;
+   grid-template-rows: 20% 65% 10%;
+   row-gap: 5px;
+   place-items: center;
+   width: auto;
+   height: 100vh;
+}
+
+#header-part {
+   text-align: center;
+   color: #1d1d1f;
+   margin-top: 10px;
+}
+
+#logo {
+   font-size: 42px;
+   text-shadow: 2px 1px;
+}
+
+#message {
+   font-size: 24px;
+}
+
+.rooms-wrapper {
+   display: flex;
+   flex-direction: row;
+}
+
+.room-details {
+   box-sizing: border-box;
+   background: linear-gradient(0deg, rgba(217,187,241,1) 100%, rgba(150,36,237,1) 0%);
+   height: auto;
+   width: auto;
+   flex-wrap: wrap;
+   padding: 100px;
+   margin: 10px;
+   border: 1px solid rgb(167, 159, 159);
+   border-radius: 1.25rem;
+   cursor: pointer;
+}
+
+.room-details:hover,
+.room-details:focus,
+.room-details:active {
+  background: linear-gradient(0deg, rgba(217,187,241,1) 0%, rgb(160, 66, 231) 100%);
+  border: none;
+}
+
+#footer-text {
+   align-self: flex-end;
+   color: rgb(53, 51, 51);
+}
+
+@media screen and (max-width: 890px) {
+
+   .wrapper {
+      display: grid;
+      grid-template-rows: 15% 60% 10%;
+      align-self: center;
+   }
+
+   #header-part {
+      text-align: center;
+      color: #1d1d1f;
+      align-self: flex-start;
+   }
+
+   #logo {
+      font-size: 26px;
+   }
+
+   #message {
+      font-size: 20px;
+   }
+
+   .rooms-wrapper {
+      display: flex;
+      flex-direction: column;
+   }
+
+   .room-details {
+      padding: 50px;
+   }
+}
