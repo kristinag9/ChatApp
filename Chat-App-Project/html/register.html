@@ -15,20 +15,20 @@
          <h1 id="main-title">Sign up</h1>
          <h3 id="subtitle">Chat with friends and have fun</h3>
          <form class="register-form">
-            <input type="text" placeholder="User Name" class="text-input" id="username" pattern="[A-Za-z0-9]{3,}"
-               required />
-            <input type="text" placeholder="Email" class="text-input" id="email"
-               pattern="[A-Za-z0-9]^[._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$" required />
+            <input type="text" placeholder="User Name" class="text-input" id="username" required />
+            <input type="text" placeholder="Email" class="text-input" id="email" required />
             <input type="password" placeholder="Password" class="text-input" id="password" required />
             <input type="password" placeholder="Confirm password" class="text-input" id="confirm-pass" required />
             <div class="actions">
-               <input type="submit" value="Sign up" id="submit" />
-               <a href="../login/login.html" title="Already have account" class="login-link">Already have account</a>
+               <button id="submit">Sign up</button>
+               <a href="login.html" title="Already have account" class="login-link">Already have
+                  account</a>
             </div>
          </form>
       </div>
    </div>
    <script type="module" src="../src/app.js"></script>
+   <script type="module" src="../src/auth.js"></script>
 </body>
 
 </html>
