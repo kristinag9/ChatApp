@@ -65,10 +65,10 @@ if(registrationForm) {
     }
 
     // Save the user data into the database
-    const dataRef = ref(db, 'users');
-    const usersRef = push(dataRef);
     createUserWithEmailAndPassword(auth, email, password).then((userCredential) => {
       // When the user is signed in, take the data and save it
+      const dataRef = ref(db, 'users');
+      const usersRef = push(dataRef);
       set(usersRef, {
         username: userName,
         email: email,
