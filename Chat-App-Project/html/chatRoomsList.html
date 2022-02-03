@@ -10,7 +10,7 @@
 </head>
 
 <body>
-   <div class="wrapper" hidden>
+   <div class="wrapper">
       <header id="header-part">
          <h1 id="logo">Welcome to my Chat App!</h1>
          <h2 id="message">Enter the room you want...</h2>
@@ -19,12 +19,12 @@
       </header>
       <main class="main">
          <ul class="rooms-wrapper">
-            <!-- <li>
+            <li>
                <button class="room-details">
-                  <a href="chatRoom.html">Room1</a>
+                  <a href="chatRoom.html">General</a>
                </button>
             </li>
-            <li>
+            <!-- <li>
                <button class="room-details">
                   Room2
                </button>
@@ -43,6 +43,7 @@
    <div class="wrapper-modal" hidden>
       <form class="modal-form" method="post">
          <section class="header-part">
+            <button id="close-modal-btn">X</button>
             <h1 id="main-title">Create chat room</h1>
             <h2 id="subtitle">Create chatroom and communicate with your friends </h2>
             <img src="../images/chat-room.jpg" alt="Chatroom participants" id="chat-room">
@@ -50,10 +51,10 @@
          <section class="main-part">
             <div class="room-title">
                <label id="label-add-title">Add title to you room:</label>
-               <input type="text" placeholder="Enter here..." id="title-input" required />
+               <input type="text" placeholder="Enter here..." id="title-input" class="modal-input" required />
             </div>
             <label id="label-add-members">Add members to your room:</label>
-            <input id="adding-section" type="text" name="search" placeholder="Search members..." />
+            <input class="modal-input" id="adding-section" type="text" name="search" placeholder="Search members..." />
             <div class="text-area">
                <div class="list-members">
                   <ul>
@@ -64,7 +65,7 @@
             </div>
          </section>
          <section class="footer-part">
-            <button id="create-btn">Create</button>
+            <button id="create-btn-modal">Create</button>
          </section>
       </form>
    </div>
