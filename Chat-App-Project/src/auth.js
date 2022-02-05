@@ -85,21 +85,6 @@ if(registrationForm) {
         // registrationForm.reset();
 }
 
-// Finding all emails of the users
-// function findUsersEmails() {
-//   let emails = [];
-//   onValue(dataRef, (snapshot) => {
-//     snapshot.forEach((childSnapshot) => {
-//       const childKey = childSnapshot.key;
-//       const childData = childSnapshot.val();
-//       emails.push(childData.email);
-//     });
-//   }, {
-//     onlyOnce: true
-//   });
-//   return emails;
-// };
-
 // LOG IN
 const loginForm = document.querySelector('.login-form');
 if(loginForm) {
