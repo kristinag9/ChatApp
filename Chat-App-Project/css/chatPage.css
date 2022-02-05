@@ -20,11 +20,11 @@
    column-gap: 5px;
    background: linear-gradient(0deg, rgb(215, 183, 241) 0%, rgb(186, 107, 247) 100%);
    place-items: center;
-   color: white;
+   color: rgb(83, 59, 97);
+   font-weight: bold;
    height: 100%;
    max-height: 8%;
    border-bottom: 1px solid rgb(167, 159, 159);
-   /* border-radius: 1.2rem; */
    box-shadow: 5px 5px 10px rgb(116, 84, 134);
 }
 
@@ -57,7 +57,7 @@
    padding: 5px;
    float: right;
    border: none;
-   color: #fff;
+   color: rgb(83, 59, 97);
    cursor: pointer;
    font-size: 20px;
    text-align: center;
@@ -109,11 +109,27 @@
 .messages-list {
    display: flex;
    flex-direction: column;
+   column-gap: 10px;
    padding: 0;
    margin: 0;
-   max-height: 150px;
-   height: auto;
-   text-align: left;
+}
+
+.message-modal {
+   height: 80px;
+   width: 50%;
+   margin: 10px;
+   font-size: 16px;
+   text-align: center;
+   border: 1px solid rgb(167, 159, 159);
+   border-radius: 1.2rem;
+   box-shadow: 5px 5px 15px rgb(116, 84, 134);
+   background: linear-gradient(0deg, rgba(217,187,241,1) 0%, rgb(160, 66, 231) 100%);
+   overflow-y: scroll;
+   overflow: auto;
+}
+
+.messages-list:nth-child(even){
+   background-color: red;
 }
 
 .send-msg-area {
@@ -127,9 +143,10 @@
 #user-msg {
    font-size: medium;
    text-align: left;
+   padding-left: 10px;
    height: 100%;
    border: 1px solid rgb(167, 159, 159);
-   border-radius: 1.2rem;
+   border-radius: 1rem;
    box-shadow: 5px 5px 10px rgb(116, 84, 134);
 }
 
@@ -150,6 +167,7 @@
    width: 100%;
    max-height: 200px;
    box-shadow: 5px 10px 18px rgb(116, 84, 134);
+   align-self: center;
 }
 
 #send-msg:hover,
@@ -160,5 +178,34 @@
 }
 
 .users-info-part {
+   display: flex;
+   flex-direction: column;
+   background: linear-gradient(0deg, rgb(224, 210, 236) 0%, rgb(167, 103, 216) 100%);
+   column-gap: 10px;
    margin: 5px;
+   border: 1px solid rgb(167, 159, 159);
+   border-radius: 1.25rem;
+   box-shadow: 5px 10px 18px rgb(116, 84, 134);
+   overflow-y: scroll;
+   overflow: auto;
+}
+
+.current-user {
+   list-style-type: none;
+   height: 100px;
+   width: 95%;
+   align-self: center;
+   margin: 10px;
+   font-size: 24px;
+   text-align: center;
+   text-shadow: 1px 1px;
+   border: 1px solid rgb(167, 159, 159);
+   border-radius: 1.2rem;
+   box-shadow: 5px 5px 15px rgb(116, 84, 134);
+}
+
+.current-user:hover,
+.current-user:focus {
+  background: linear-gradient(0deg, rgba(217,187,241,1) 0%, rgb(160, 66, 231) 100%);
+  border: none;
 }
