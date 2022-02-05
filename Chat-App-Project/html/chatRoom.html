@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Chat</title>
+   <link rel="stylesheet" href="../css/chatPage.css">
+</head>
+
+<body>
+   <div class="wrapper">
+      <header class="header-part">
+         <div class="first-part" id="first-part">
+            <span id="logo">Chat App</span>
+         </div>
+         <div class="second-part" id="second-part">
+            <span>Hello! You're in chat room: </span>
+            <span id="chat-room-name"></span>
+         </div>
+         <div class="third-part">
+            <button id="logout-btn">Log out</button>
+         </div>
+      </header>
+      <main class="main-part">
+         <div class="chat-area">
+            <div class="messages-wrapper">
+               <ul class="messages-list">
+                  <li>Message1</li>
+                  <li>Message1</li>
+               </ul>
+            </div>
+            <div class="send-msg-area">
+               <textarea type="text" id="user-msg"></textarea>
+               <button id="send-msg">Send</button>
+            </div>
+         </div>
+         <div class="users-info-part">
+            Profile info
+         </div>
+      </main>
+   </div>
+</body>
+
+</html>
