@@ -335,33 +335,38 @@ li {
  }
 
 @media screen and (max-width: 890px) {
-
    .wrapper {
-      display: grid;
-      grid-template-rows: auto auto auto;
-      height: auto;
+      display: flex;
+      flex-direction: column;
+      /* height: auto; */
+      margin: none;
    }
 
    #header-part {
+      color: #1d1d1f;
+      align-self: center;
+      display: flex;
+      flex-direction: column;
       text-align: center;
       color: #1d1d1f;
-      align-self: flex-start;
-      margin: 10px;
+      max-height: 20%;
+      max-width: 60%;
+      margin-top: 10px;
    }
 
    #logo {
-      font-size: 26px;
-      margin: 10px;
+      font-size: 24px;
+      margin-bottom: 0;
    }
 
    #message {
-      font-size: 20px;
-      margin: 10px;
+      font-size: 18px;
+      margin-bottom: 0;
    }
 
    #or {
-      font-size: 20px;
-      margin: 10px;
+      font-size: 18px;
+      margin-bottom: 0;
    }
 
    #create-room-btn {
@@ -379,15 +384,35 @@ li {
       margin: 10px;
    }
 
+   .main {
+      height: auto;
+      max-width: 60%;
+      margin-top: 120px;
+      border: none;
+      box-shadow: none;
+      align-self: center;
+   }
+
    .rooms-wrapper {
       display: flex;
       flex-direction: column;
-      flex-wrap: wrap;
-      flex-basis: auto;
+      flex-flow: column wrap;
    }
 
    .room-details {
       padding: 70px;
+      align-self: center;
+      box-sizing: border-box;
+      max-width: 150px;
+      max-height: 150px;
+      height: auto;
+      padding: 50px;
+      margin-top: 10px;
+   }
+
+   #footer {
+      max-width: 60%;
+      padding: 20px;
       align-self: center;
    }
 
