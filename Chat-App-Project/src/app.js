@@ -96,6 +96,7 @@ const toggleModal = (open) => {
   createRoomDialog.toggleAttribute("hidden", !open);
 };
 
+// Create s model for the new room and add it to the list of rooms
 const createRoomListElement = (name) => {
   // const allChatRoomsTitles = getChatRoomsTitles();
   const chatRoomList = document.querySelector(".rooms-wrapper");
@@ -108,17 +109,18 @@ const createRoomListElement = (name) => {
   btnRoom.innerText = `${name}`;
   listItem.appendChild(btnRoom);
   chatRoomList.appendChild(listItem);
-  btnRoom.addEventListener("click", event => {
-    window.location = "/html/chatRoom.html";
-    const headerChatRoomName = document.getElementById("chat-room-name");
-    console.log(headerChatRoomName);
-    headerChatRoomName.innerText = `${name}`;
-    console.log(headerChatRoomName);
-  });
+  // btnRoom.addEventListener("click", event => {
+  //   window.location = "/html/chatRoom.html";
+  //   const headerChatRoomName = document.getElementById("chat-room-name");
+  //   console.log(headerChatRoomName);
+  //   headerChatRoomName.innerText = `${name}`;
+  //   console.log(headerChatRoomName);
+  // });
   // });
 }
 
-// const listMembers = document.querySelector(".show-users-emails");
+// For each email of the users emails in the database create a modal which appends
+// each email item to the modal for creating a new room
 const membersList = document.querySelector(".show-users-emails");
 const memberListTemplate = (email) => {
   const listItem = document.createElement("li");
@@ -134,88 +136,71 @@ const memberListTemplate = (email) => {
 
   listItem.appendChild(emailTag);
   listItem.appendChild(addButton);
-
   membersList.appendChild(listItem);
 }
 
-// console.log(usersEmails);
-// const loadUsersEmails = async() => {
-//   const usersEmails = findUsersEmails();
-//   console.log(usersEmails);
-//   usersEmails.map((email) => memberListTemplate(email));
-// };
+// Saving the new room in the database
+const createNewRoom = (name) => {
+  const dataRef = ref(db, 'chat-rooms');
+  const roomsRef = push(dataRef);
+    set(roomsRef, {
+      title: name,
+      members: ''
+    });
+}
 
-
-// Adding functionality to the modal form for creating new chat room
-const createNewRoom = () => {
-  const inputTitleRoom = document.getElementById("title-input");
-  inputTitleRoom.addEventListener("change", (event) => {
-    let newRoomTitle = inputTitleRoom.value;
-     if(newRoomTitle === ''){
+// Add functionality to the create button of the modal for creating a new room
+const createRoomModalButton = document.getElementById("create-btn-modal");
+if(createRoomModalButton) {
+    createRoomModalButton.addEventListener("click", event => {
+      event.preventDefault();
+      const inputTitleRoom = document.getElementById("title-input");
+      let inputValue = inputTitleRoom.value.trim();
+      if(inputValue === ''){
         alert("Please, add a title to your new chat room!");
         // createRoomModalButton.setAttribute("disabled", "");
         return;
       }
 
-      if(newRoomTitle.length > 10){
+      if(inputValue.length > 10){
         alert("The name of your room must be under 10 characters!");
         // createRoomModalButton.setAttribute("disabled", "");
         return;
       }
 
       const allRoomsTitles = getChatRoomsTitles();
-      if(allRoomsTitles.some(title => title = newRoomTitle)) {
+      console.log(allRoomsTitles);
+      if(allRoomsTitles.some(title => title = inputValue)) {
         alert("The name is already taken! Choose another one!");
         return;
       }
-
-        // const searchingUsers = document.getElementById("adding-section").value;
-
-          // const textArea = document.querySelector(".text-area");
-          // const usersEmails = findUsersEmails();
-          // if(usersEmails.some(email => email !== searchingUsers.value)) {
-          //   alert("No user found!");
-          // }
-          // usersEmails.forEach((email) => memberListTemplate(email));
-          // memberListTemplate(searchingUsers.value);
-          // loadUsers();
-
-      const dataRef = ref(db, 'chat-rooms');
-      const roomsRef = push(dataRef);
-        set(roomsRef, {
-          title: newRoomTitle,
-          members: ''
-        });
-      createRoomListElement(newRoomTitle);
-  });
+      createNewRoom(inputValue);
+      createRoomListElement(inputValue);
+      toggleModal(false);
+      inputTitleRoom.value = "";
+    });
 }
 
-const usersEmails = findUsersEmails();
+// Add functionality to the close button of the modal for creating a new room
+const closeModalBtn = document.getElementById("close-modal-btn");
+closeModalBtn.addEventListener("click", event => {
+    event.preventDefault();
+    const inputTitleRoom = document.getElementById("title-input");
+    toggleModal(false);
+    inputTitleRoom.value = "";
+});
 
+// Add functionality to the create room button -> opening the modal for creating a room
 const createChatRoomBtn = document.getElementById("create-room-btn");
 if(createChatRoomBtn) {
-  createChatRoomBtn.addEventListener("click", (event) => {
+  const usersEmails = findUsersEmails();
+  createChatRoomBtn.addEventListener("click", event => {
+    event.preventDefault();
     membersList.innerText = "";
     usersEmails.map(email => memberListTemplate(email));
     toggleModal(true);
   });
 };
-createNewRoom();
-
-const createRoomModalButton = document.getElementById("create-btn-modal");
-if(createRoomModalButton) {
-    createRoomModalButton.addEventListener("click", event => {
-      const inputTitleRoom = document.getElementById("title-input");
-      inputTitleRoom.value = "";
-      toggleModal(false);
-
-    });
-}
-
-const closeModalBtn = document.getElementById("close-modal-btn");
-closeModalBtn.addEventListener("click", event => {
-    toggleModal(false);
-});
 
 // FUNCTIONALITY TO CHAT ROOM PAGE
 
