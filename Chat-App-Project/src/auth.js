@@ -144,3 +144,14 @@ function userRedirect() {
     }
   });
 }
+
+// Log out
+const logoutBtn = document.getElementById("logout-btn");
+if(logoutBtn) {
+  logoutBtn.addEventListener("click", event => {
+      event.preventDefault();
+      auth.signOut().then(()=> {
+            window.location = "../html/login.html";
+        });
+    } )
+}
