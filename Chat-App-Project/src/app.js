@@ -100,12 +100,21 @@ const createRoomListElement = (name) => {
   // const allChatRoomsTitles = getChatRoomsTitles();
   const chatRoomList = document.querySelector(".rooms-wrapper");
   const listItem = document.createElement('li');
+  listItem.classList.add("room-details");
   // allChatRoomsTitles.map(title => {
-    listItem.innerHTML = `
-    <button class="room-details">
-      <a href="chatRoom.html">${name}</a>
-    </button>`;
-    chatRoomList.appendChild(listItem);
+
+  const btnRoom = document.createElement("button");
+  btnRoom.classList.add("room-name-btn");
+  btnRoom.innerText = `${name}`;
+  listItem.appendChild(btnRoom);
+  chatRoomList.appendChild(listItem);
+  btnRoom.addEventListener("click", event => {
+    window.location = "/html/chatRoom.html";
+    const headerChatRoomName = document.getElementById("chat-room-name");
+    console.log(headerChatRoomName);
+    headerChatRoomName.innerText = `${name}`;
+    console.log(headerChatRoomName);
+  });
   // });
 }
 
@@ -144,6 +153,12 @@ const createNewRoom = () => {
     let newRoomTitle = inputTitleRoom.value;
      if(newRoomTitle === ''){
         alert("Please, add a title to your new chat room!");
+        // createRoomModalButton.setAttribute("disabled", "");
+        return;
+      }
+
+      if(newRoomTitle.length > 10){
+        alert("The name of your room must be under 10 characters!");
         // createRoomModalButton.setAttribute("disabled", "");
         return;
       }
@@ -201,3 +216,6 @@ const closeModalBtn = document.getElementById("close-modal-btn");
 closeModalBtn.addEventListener("click", event => {
     toggleModal(false);
 });
+
+// FUNCTIONALITY TO CHAT ROOM PAGE
+
