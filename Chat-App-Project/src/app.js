@@ -1,6 +1,6 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.3/firebase-app.js";
-import { getDatabase, set, push, ref, onValue } from "https://www.gstatic.com/firebasejs/9.6.3/firebase-database.js";
+import { getDatabase, set, push, ref, onValue, onChildAdded } from "https://www.gstatic.com/firebasejs/9.6.3/firebase-database.js";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -9,7 +9,7 @@ import { getDatabase, set, push, ref, onValue } from "https://www.gstatic.com/fi
 const firebaseConfig = {
   apiKey: "AIzaSyAFVd6h59xX3gOeP4O5LDJQ87w-hJdep64",
   authDomain: "chatapp-57119.firebaseapp.com",
-  // databaseURL: "https://chatapp-57119-default-rtdb.firebaseio.com",
+  databaseURL: "https://chatapp-57119-default-rtdb.firebaseio.com",
   projectId: "chatapp-57119",
   storageBucket: "chatapp-57119.appspot.com",
   messagingSenderId: "283809287187",
@@ -19,45 +19,10 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-// const analytics = getAnalytics(app);
+// Get reference to the database
 const db = getDatabase(app);
-// console.log(db);
 
-// const dataRef = ref(db, "messages");
-// set(dataRef, {
-//   "a": "b"
-// })
-
-// const messageList;
-// For messages
-// .addEventListener("change". event => {
-//   const dataRef = ref(db, "messages");
-//   const messageRef = push(dataRef);
-
-//   Set(messageRef, {
-//     "username": // from db
-//     "date": Date.now().toLocaleString(),
-//     "text": event.target.value
-//   });
-
-// event.target.value = "";
-// })
-
-// za da vzemem message
-// .addEventListener("change", event => {
-// OT HTML-A VZIMAM FORMATA ZA MESSAGE
-// const message = data.val();
-// const listItem = document.createElement('li');
-// listItem.innerHTML = `
-//   <div class="user-info">
-//     <span class="username><b>${message.username}</b></span>
-//     <span class="date>${message.date}</span>
-//   </div>
-//   <span class="message">${message.text}</span>
-// `
-// messageList.appendChild(listItem);
-// });
-
+// Get the rooms titles only
 const getChatRoomsTitles = () => {
   const dataRef = ref(db, 'chat-rooms');
   const roomsTitles = [];
@@ -73,6 +38,7 @@ const getChatRoomsTitles = () => {
  return roomsTitles;
 };
 
+// Get the users emails only
 const getEmailsToAdd = () => {
   const dataRef = ref(db, 'added-members');
   const emailsToAdd = [];
@@ -88,9 +54,6 @@ const getEmailsToAdd = () => {
   });
   return emailsToAdd;
 }
-
-// const allemails = getEmailsToAdd();
-// console.log(allemails);
 
 // Finding all emails of the users
 const findUsersEmails = () => {
@@ -274,16 +237,125 @@ console.log(headerChatRoomName);
 const roomName = window.localStorage.getItem("roomName");
 headerChatRoomName.innerText = `${roomName}`;
 
-const setUserName = document.querySelector(".sender-name");
-const usernameFromLocal = window.localStorage.getItem("username");
-setUserName.innerText = `${usernameFromLocal}`;
-
-const setData = document.querySelector(".date");
-const newDate = new Date();
-setData.innerText = newDate.toLocaleString();
-
 const emailsToAdd = getLocalStorage("emailsToAdd");
 const userInRoom = document.querySelector(".user-in-room");
 emailsToAdd.map(email => {
   userInRoom.innerText = `${email}`;
+});
+
+const messagesList = document.querySelector(".messages-list");
+const enteredText = document.getElementById("user-msg");
+
+const messageModalTemplate = (name, date, text) => {
+  const listItem = document.createElement('li');
+  listItem.classList.add("message-modal");
+
+  const sectionItem = document.createElement("section");
+  sectionItem.classList.add("message-info");
+
+  // First row of message
+  const firstRowDiv = document.createElement("div");
+  firstRowDiv.classList.add("first-row-msg");
+  const msgUserInfo = document.createElement("div");
+  msgUserInfo.classList.add("msg-user-info");
+  const senderName = document.createElement("span");
+  senderName.classList.add("sender-name");
+  senderName.innerText = name;
+  const dateSpan = document.createElement("span");
+  dateSpan.classList.add("date");
+  dateSpan.innerText = date;
+  msgUserInfo.appendChild(senderName);
+  msgUserInfo.appendChild(dateSpan);
+
+  const msgOptions = document.createElement("div");
+  msgOptions.classList.add("msg-options");
+
+  const editButton = document.createElement("button");
+  editButton.classList.add("edit-msg-icon");
+  const iconEdit = document.createElement("i");
+  iconEdit.classList.add("far");
+  iconEdit.innerHTML = "&#xf044;";
+  editButton.appendChild(iconEdit);
+
+  const deleteButton = document.createElement("button");
+  deleteButton.classList.add("delete-msg-btn");
+  const iconDelete = document.createElement("i");
+  iconDelete.classList.add("far");
+  iconDelete.innerHTML = "&#xf2ed;";
+  deleteButton.appendChild(iconDelete);
+
+  msgOptions.appendChild(editButton);
+  msgOptions.appendChild(deleteButton);
+
+  firstRowDiv.appendChild(msgUserInfo);
+  firstRowDiv.appendChild(msgOptions);
+
+  // Second row of message
+  const sndRowDiv = document.createElement("div");
+  sndRowDiv.classList.add("second-row-msg");
+  const curMsgSpan = document.createElement("span");
+  curMsgSpan.classList.add("current-msg");
+  curMsgSpan.innerText = text;
+  sndRowDiv.appendChild(curMsgSpan);
+
+  // Third row of message
+  const thirdRowDiv = document.createElement("div");
+  thirdRowDiv.classList.add("third-row-msg");
+
+  const likeButton = document.createElement("button");
+  likeButton.classList.add("like-msg-icon");
+  const likeIcon = document.createElement("i");
+  likeIcon.classList.add("far");
+  likeIcon.innerHTML = "&#xf164";
+  likeButton.appendChild(likeIcon);
+
+  const dislikeButton = document.createElement("button");
+  dislikeButton.classList.add("dislike-msg-btn");
+  const dislikeIcon = document.createElement("i");
+  dislikeIcon.classList.add("far");
+  dislikeIcon.innerHTML = "&#xf165;";
+  dislikeButton.appendChild(dislikeIcon);
+
+  thirdRowDiv.appendChild(likeButton);
+  thirdRowDiv.appendChild(dislikeButton);
+
+  sectionItem.appendChild(firstRowDiv);
+  sectionItem.appendChild(sndRowDiv);
+  sectionItem.appendChild(thirdRowDiv);
+  listItem.appendChild(sectionItem);
+  messagesList.appendChild(listItem);
+}
+
+// Add functionality to "Send" button
+const buttonSend = document.getElementById("send-msg");
+if(buttonSend) {
+  buttonSend.addEventListener("click", event => {
+    event.preventDefault();
+    // get the name from the local storage
+    const usernameFromLocal = window.localStorage.getItem("username");
+    const newDate = new Date();
+
+    // get the entered message
+    const enteredText = document.getElementById("user-msg");
+    let textValue = enteredText.value;
+
+    // save the message into the database
+    const dataRef = ref(db, "messages");
+    const messageRef = push(dataRef);
+    set(messageRef, {
+      username: `${usernameFromLocal}`,
+      date: newDate.toLocaleString(),
+      text: textValue
+    });
+
+    enteredText.value = "";
+  });
+}
+
+// Showing message in the message area
+const dataRef = ref(db, "messages");
+onChildAdded(dataRef, (data) => {
+  const message = data.val();
+  messageModalTemplate(message.username, message.date, message.text);
+
 });

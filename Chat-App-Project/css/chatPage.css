@@ -44,7 +44,16 @@
    justify-self: center;
    display: flex;
    flex-direction: row;
-   font-size: 22px;
+}
+
+#chat-room-name, span {
+   font-size: 24px;
+   color: rgb(83, 59, 97);
+   font-family: Comic Sans, Comic Sans MS, cursive;
+}
+
+#chat-room-name {
+   text-shadow: 10px 10px 15px rgb(92, 31, 128);
 }
 
 .third-part {
@@ -67,7 +76,7 @@
    background: transparent;
    margin: 5px;
    padding: 5px 20px;
-   font-weight: normal;
+   font-weight: bold;
    border-radius: 1.25rem;
    box-shadow: 5px 5px 10px rgb(116, 84, 134);
 }
@@ -104,18 +113,21 @@
    border: 1px solid rgb(167, 159, 159);
    border-radius: 1.2rem;
    box-shadow: 5px 10px 18px rgb(116, 84, 134);
+   height: 450px;
+
 }
 
 .messages-list {
    display: flex;
    flex-direction: column;
-   column-gap: 10px;
    padding: 0;
    margin: 0;
+   flex-flow: row wrap;
 }
 
 .message-modal {
-   height: 120px;
+   height: auto;
+   max-height: 100px;
    width: 50%;
    margin: 10px;
    font-size: 16px;
@@ -171,21 +183,28 @@ button {
    padding: 5px;
 }
 
-#edit-msg-icon, #delete-msg-btn {
+.edit-msg-icon, .delete-msg-btn {
    color: rgb(10, 10, 10);
    cursor: pointer;
    text-shadow: 5px 5px 15px rgb(116, 84, 134);
 }
 
 .second-row-msg {
+   max-height: 50px;
    overflow-y: scroll;
    overflow: auto;
+   align-self: flex-start;
+}
+
+.far {
+   font-size: 16px;
 }
 
 .current-msg {
-   font-size: 14px;
+   font-size: 18px;
    color: rgb(10, 10, 10);
    font-weight: normal;
+   padding-left: 10px;
 }
 
 .third-row-msg {
@@ -195,7 +214,7 @@ button {
    align-items: baseline;
 }
 
-#like-msg-icon, #dislike-msg-btn {
+.like-msg-icon, .dislike-msg-btn {
    color: rgb(10, 10, 10);
    cursor: pointer;
    margin-left: 20px;
@@ -239,6 +258,8 @@ button {
    cursor: pointer;
    font-size: 16px;
    text-align: center;
+   font-weight: bold;
+   color: rgb(83, 59, 97);
    width: 100%;
    max-height: 200px;
    box-shadow: 5px 10px 18px rgb(116, 84, 134);
@@ -278,6 +299,7 @@ button {
    border: 1px solid rgb(167, 159, 159);
    border-radius: 1.2rem;
    box-shadow: 5px 5px 15px rgb(116, 84, 134);
+   color: rgb(55, 38, 65);
 }
 
 .current-user:hover,
