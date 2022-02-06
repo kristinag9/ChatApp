@@ -149,7 +149,7 @@
    justify-content: space-between;
 }
 
-.sender-name, .date {
+.sender-name {
    padding-left: 10px;
    font-size: 18px;
    font-weight: bold;
@@ -159,6 +159,10 @@
 
 .date {
    font-weight: normal;
+   font-size: 17px;
+   color: rgb(47, 44, 49);
+   align-self: center;
+   letter-spacing: normal;
 }
 
 .msg-options {
