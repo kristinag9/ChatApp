@@ -125,6 +125,7 @@ if(loginForm) {
         return;
      }
 
+    window.localStorage.setItem("username", userName);
     signInWithEmailAndPassword(auth, email, password)
     // when the user is signed in, check for errors
     .catch((error) => {
