@@ -207,7 +207,6 @@ const membersModal = () => {
   });
 }
 
-
 // Add functionality to the create button of the modal for creating a new room
 const createRoomModalButton = document.getElementById("create-btn-modal");
 if(createRoomModalButton) {
@@ -238,7 +237,6 @@ if(createRoomModalButton) {
 
       // Get the array with selected emails from the local storage
       const emailsToAdd = getLocalStorage("emailsToAdd");
-      console.log(emailsToAdd);
 
       createNewRoom(inputValue, emailsToAdd);
       // membersModal();
@@ -283,3 +281,9 @@ setUserName.innerText = `${usernameFromLocal}`;
 const setData = document.querySelector(".date");
 const newDate = new Date();
 setData.innerText = newDate.toLocaleString();
+
+const emailsToAdd = getLocalStorage("emailsToAdd");
+const userInRoom = document.querySelector(".user-in-room");
+emailsToAdd.map(email => {
+  userInRoom.innerText = `${email}`;
+});

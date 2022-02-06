@@ -165,10 +165,6 @@
    letter-spacing: normal;
 }
 
-.msg-options {
-   /* background-color: red; */
-}
-
 button {
    background: transparent;
    border: none;
@@ -262,20 +258,21 @@ button {
    background: linear-gradient(0deg, rgb(224, 210, 236) 0%, rgb(167, 103, 216) 100%);
    column-gap: 10px;
    margin: 5px;
-   border: 1px solid rgb(167, 159, 159);
+   /* border: 1px solid rgb(167, 159, 159); */
    border-radius: 1.25rem;
    box-shadow: 5px 10px 18px rgb(116, 84, 134);
    overflow-y: scroll;
    overflow: auto;
+   overflow-x: hidden;
 }
 
 .current-user {
    list-style-type: none;
-   height: 100px;
+   height: 90px;
    width: 95%;
    align-self: center;
    margin: 10px;
-   font-size: 24px;
+   font-size: 22px;
    text-align: center;
    text-shadow: 1px 1px;
    border: 1px solid rgb(167, 159, 159);
