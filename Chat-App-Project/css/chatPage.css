@@ -279,12 +279,20 @@ button {
    background: linear-gradient(0deg, rgb(224, 210, 236) 0%, rgb(167, 103, 216) 100%);
    column-gap: 10px;
    margin: 5px;
-   /* border: 1px solid rgb(167, 159, 159); */
    border-radius: 1.25rem;
    box-shadow: 5px 10px 18px rgb(116, 84, 134);
    overflow-y: scroll;
    overflow: auto;
    overflow-x: hidden;
+}
+
+#users-room-info {
+   color: rgb(68, 47, 80);
+   font-family: Comic Sans, Comic Sans MS, cursive;
+   font-size: 24px;
+   text-shadow: 10px 10px 15px rgb(92, 31, 128);
+   font-weight: bold;
+   text-align: center;
 }
 
 .current-user {
@@ -295,11 +303,12 @@ button {
    margin: 10px;
    font-size: 22px;
    text-align: center;
-   text-shadow: 1px 1px;
-   border: 1px solid rgb(167, 159, 159);
+   font-weight: bold;
+   text-shadow: 5px 5px 5px rgb(177, 110, 216);
    border-radius: 1.2rem;
    box-shadow: 5px 5px 15px rgb(116, 84, 134);
-   color: rgb(55, 38, 65);
+   color: rgb(42, 28, 49);
+   font-family: Comic Sans, Comic Sans MS, cursive;
 }
 
 .current-user:hover,

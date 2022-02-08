@@ -13,8 +13,7 @@ body {
 .wrapper {
    display: flex;
    flex-direction: row;
-   height: 97vh;
-   margin: 10px;
+   height: 100vh;
 }
 
 #header-part {
@@ -22,9 +21,8 @@ body {
    flex-direction: column;
    text-align: center;
    color: #1d1d1f;
-   max-height: 35%;
-   max-width: 30%;
-   margin-top: 100px;
+   width: 30%;
+   margin-top: 250px;
 }
 
 #logo {
@@ -72,11 +70,13 @@ body {
 
 .main {
    height: 90vh;
-   width: 60%;
+   width: 50%;
    overflow-y: scroll;
    overflow: auto;
    border-radius: 1.2rem;
    box-shadow: 5px 10px 18px rgb(116, 84, 134);
+   align-self: center;
+   margin: 10px;
 }
 
 .rooms-wrapper {
@@ -88,13 +88,12 @@ body {
 
 .room-details {
    display: flex;
-   align-items: flex-start;
+   align-items: center;
    box-sizing: border-box;
    justify-content: center;
    /* background: linear-gradient(0deg, rgba(217,187,241,1) 100%, rgba(150,36,237,1) 0%); */
-   max-width: 150px;
-   max-height: 150px;
-   height: auto;
+   width: 200px;
+   height: 200px;
    padding: 50px;
    margin: 10px;
    border: 1px solid rgb(167, 159, 159);
@@ -112,7 +111,7 @@ body {
    padding: 10px;
    border: none;
    cursor: pointer;
-   font-size: 16px;
+   font-size: 26px;
    color:rgb(62, 8, 99);
    font-weight: bold;
    height: auto;
@@ -129,10 +128,11 @@ body {
 }
 
 #footer {
-   max-height: 15%;
-   max-width: 10%;
+   max-height: 25%;
+   width: 20%;
    padding: 20px;
    align-self: flex-end;
+   font-size: 24px;
 }
 
 #footer-text {
@@ -255,6 +255,7 @@ body {
    width: 100%;
    height: 200px;
    overflow-y: scroll;
+   overflow: auto;
    border-radius: 8px;
    border: 1px solid rgb(127, 55, 175);
 }
@@ -339,6 +340,7 @@ li {
       flex-direction: column;
       /* height: auto; */
       margin: none;
+      justify-content: center;
    }
 
    #header-part {
@@ -413,6 +415,7 @@ li {
       max-width: 60%;
       padding: 20px;
       align-self: center;
+      font-size: 18px;
    }
 
    .modal-form {
