@@ -1,66 +1,69 @@
 import { db } from "./db";
-import { push, ref, update, remove, query } from "firebase/database";
+import { push, ref, update, remove, query, onValue } from "firebase/database";
 
 // Methods for the chat room
 // Get chat room by id
 export const getChatRoom = (roomId) => {
    const roomRef = ref(db, `chat-rooms/${roomId}`);
-   const returnedRoom = query(roomRef);
+   return query(roomRef);
 }
 
 // Get all chat rooms
-export const getChatRooms = () => {
+export const chatRoomsListener = (callback) => {
    const roomsRef = ref(db, "chat-rooms");
-   const returnedRoom = query(roomsRef);
+   onValue(roomsRef, (snapshot) => {
+      callback(snapshot);
+   })
 }
 
 // Create a room in the database
-export const createRoom = (room) => {
+export const createRoom = ({ title, members }) => {
    const roomRef = ref(db, "chat-rooms");
-   const newRoomRef = push(roomRef, room);
+   const newRoomRef = push(roomRef, { title });
+   members.forEach(member => addMemberToRoom(newRoomRef.key, member.email));
 }
 
 // Update chat room by id
 export const updateRoom = (roomId, room) => {
    const roomRef = ref(db, `chat-rooms/${roomId}`);
-   const updatedRoomRef = update(roomRef, room);
+   return update(roomRef, room);
 }
 
 // Delete chat room by id
 export const deleteRoom = (roomId) => {
    const roomRef = ref(db, `chat-rooms/${roomId}`);
-   const removedRoomRef = remove(roomRef);
+   return remove(roomRef);
 }
 
 // Methods for the members of a chat room
 // Add member to a chat room
 export const addMemberToRoom = (roomId, member) => {
    const membersRef = ref(db, `chat-rooms/${roomId}/members`);
-   const newMemberRef = push(membersRef, member);
+   return push(membersRef, member);
 }
 
 // Remove member from a chat room by id
 export const removeMemberFromRoom = (roomId, memberId) => {
    const memberRef = ref(db, `chat-rooms/${roomId}/members/${memberId}`);
-   const removedMemberRef = remove(memberRef);
+   return remove(memberRef);
 }
 
 // Methods for the messages of a chat room
 // Add message to a chat room
 export const addMessageToRoom = (roomId, message) => {
    const messagesRef = ref(db, `chat-rooms/${roomId}/messages`);
-   const newMessageRef = push(messagesRef, message);
+   return push(messagesRef, message);
 }
 
 // Remove message from a chat room
 export const removeMessageFromRoom = (roomId, messageId) => {
    const messageRef = ref(db, `chat-rooms/${roomId}/messages/${messageId}`);
-   const removedMessageRef = remove(messageRef);
+   return remove(messageRef);
 }
 
 // Update (Edit) message from a chat room by given messageId
 export const updateMessage = (roomId, messageId, message) => {
    const messageRef = ref(db, `chat-rooms/${roomId}/members/${messageId}`);
-   const updatedMessageRef = update(messageRef, message);
+   return update(messageRef, message);
 }
 
