@@ -44,8 +44,9 @@
          </section>
          <section class="main-part">
             <div class="room-title">
-               <label id="label-add-title">Add title to you room:</label>
-               <input type="text" placeholder="Enter here..." id="title-input" class="modal-input" required />
+               <label id="label-add-title" for="room-title">Add title to you room:</label>
+               <input type="text" placeholder="Enter here..." id="title-input" class="modal-input" name="room-title"
+                  required />
             </div>
             <label id="label-add-members">Add members to your room:</label>
             <!-- <input class="modal-input" id="adding-section" type="text" name="search" placeholder="Search members..." /> -->
@@ -63,8 +64,7 @@
          </section>
       </form>
    </div>
-   <script type="module" src="../src/app.js"></script>
-   <script type="module" src="../src/auth.js"></script>
+   <script type="module" src="/dist/chatRooms.js"></script>
 </body>
 
 </html>
