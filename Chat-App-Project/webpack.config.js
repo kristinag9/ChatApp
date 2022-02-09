@@ -2,12 +2,16 @@ const path = require('path')
 
 module.exports = {
    // The entry point file described above
-   entry: './src/index.js',
+   entry: {
+      login: "./src/view/login.js",
+      register: "./src/view/register.js",
+      chatRooms: "./src/view/chatRooms.js"
+   },
 
    // The location of the build folder described above
    output: {
       path: path.resolve(__dirname, 'dist'),
-      filename: 'bundle.js'
+      filename: '[name].js'
    },
 
    // Optional and for development only. This provides the ability to
