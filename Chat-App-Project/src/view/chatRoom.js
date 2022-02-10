@@ -60,7 +60,7 @@ userRepository.usersListener((users) => {
  * Call the user listener to change the room title when the chat room
  * page is opened
 */
-roomRepository.chatRoomTitleListener(data.room.id, title => {
+roomRepository.chatRoomTitleListener(data.room.id, (title) => {
    data.room.title = title.val();
    document.title = data.room.title;
    headerChatRoomName.innerText = data.room.title;

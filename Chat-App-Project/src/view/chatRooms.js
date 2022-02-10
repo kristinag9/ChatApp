@@ -135,7 +135,7 @@ const toggleModal = (open) => {
    backgroundWrapper.classList.toggle("hidden-overflow", open);
    backgroundWrapper.toggleAttribute("hidden", !open);
    createRoomDialog.toggleAttribute("hidden", !open);
-};
+}
 
 /**
  * Handler for opening the modal
