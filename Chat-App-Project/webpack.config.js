@@ -5,7 +5,8 @@ module.exports = {
    entry: {
       login: "./src/view/login.js",
       register: "./src/view/register.js",
-      chatRooms: "./src/view/chatRooms.js"
+      chatRooms: "./src/view/chatRooms.js",
+      chatRoom: "./src/view/chatRoom.js"
    },
 
    // The location of the build folder described above

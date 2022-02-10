@@ -7,22 +7,26 @@ const createChatRoomBtn = document.getElementById("create-room-btn");
 const membersList = document.querySelector(".show-users-emails");
 const createRoomForm = document.querySelector(".modal-form");
 const inputTitleRoom = document.getElementById("title-input");
+const chatRoomList = document.querySelector(".rooms-wrapper");
+
 
 const data = { selectedUsers: [], currentUser: {id: "", email: ""} };
 
 authService.authListener(user => {
    if(!user) {
-      window.location = "/html/login.html";
+      window.location.href = "/html/login.html";
       return;
    }
    data.currentUser.email = user.email;
 })
 
 userRepository.usersListener(users => {
+   membersList.innerHTML = "";
    users.forEach(user => {
       const userObject = { id: user.key, email: user.val().email };
-      if(userObject.email === data.currentUser.email) {
+      if(userObject.email === data.currentUser.email && !data.currentUser.id) {
          data.currentUser.id = userObject.id;
+         data.selectedUsers = [ data.currentUser ];
          return;
       }
       membersList.appendChild(createListItem(userObject));
@@ -30,7 +34,10 @@ userRepository.usersListener(users => {
 })
 
 roomRepository.chatRoomsListener(rooms => {
-   rooms.forEach(room => console.log(room.val()));
+   chatRoomList.innerHTML = "";
+   rooms.forEach(room => {
+      chatRoomList.appendChild(createRoomListElement( { title: room.val().title, id: room.key }));
+   });
 })
 
 // For each email of the users emails in the database create a modal which appends
@@ -65,6 +72,17 @@ const createListItem = (user) => {
    return listItem;
 }
 
+const createRoomListElement = (room) => {
+   const listItem = document.createElement('li');
+   listItem.classList.add("room-details");
+   const btnRoom = document.createElement("a");
+   btnRoom.classList.add("room-name-btn");
+   btnRoom.innerText = `${room.title}`;
+   listItem.appendChild(btnRoom);
+   btnRoom.href = `/html/chatRoom?roomId=${room.id}`;
+   return listItem;
+ }
+
 // Method for opening the dialog box
 const toggleModal = (open) => {
    let backgroundWrapper = document.querySelector(".wrapper");
@@ -80,8 +98,14 @@ const openModalHandler = (event) => {
 
 const closeModalHandler = (event) => {
   toggleModal(false);
+  const addUserButtons = document.querySelectorAll(".add-member-btn");
+  addUserButtons.forEach(button => {
+     if(button.innerText === "-") {
+        button.innerText = "+";
+     }
+  })
   inputTitleRoom.value = "";
-  data.selectedUsers = [];
+  data.selectedUsers = [ data.currentUser ];
 }
 
 const createRoomSubmitHandler = (event) => {
@@ -89,7 +113,7 @@ const createRoomSubmitHandler = (event) => {
    const title = inputTitleRoom.value.trim();
    console.log(data.selectedUsers);
    roomRepository.createRoom({ title, members: data.selectedUsers });
-   toggleModal(false);
+   closeModalHandler();
 }
 
  // Add functionality to the create room button -> opening the modal for creating a room
