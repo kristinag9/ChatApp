@@ -1,11 +1,13 @@
 import { db } from "./db";
-import { push, ref, update, remove, query, onValue } from "firebase/database";
+import { push, ref, update, remove, onValue, onChildAdded, onChildRemoved, onChildChanged } from "firebase/database";
 
 // Methods for the chat room
 // Get chat room by id
-export const getChatRoom = (roomId) => {
-   const roomRef = ref(db, `chat-rooms/${roomId}`);
-   return query(roomRef);
+export const chatRoomTitleListener = (roomId, callback) => {
+   const roomRef = ref(db, `chat-rooms/${roomId}/title`);
+   onValue(roomRef, (snapshot) => {
+      callback(snapshot);
+   })
 }
 
 // Get all chat rooms
@@ -35,6 +37,14 @@ export const deleteRoom = (roomId) => {
    return remove(roomRef);
 }
 
+//
+export const chatRoomMembersListener = (roomId, callback) => {
+   const roomRef = ref(db, `chat-rooms/${roomId}/members`);
+   onValue(roomRef, (snapshot) => {
+      callback(snapshot);
+   })
+}
+
 // Methods for the members of a chat room
 // Add member to a chat room
 export const addMemberToRoom = (roomId, member) => {
@@ -55,15 +65,29 @@ export const addMessageToRoom = (roomId, message) => {
    return push(messagesRef, message);
 }
 
+export const chatRoomMessageAddListener = (roomId, callback) => {
+   const messageRef = ref(db, `chat-rooms/${roomId}/messages`);
+   onChildAdded(messageRef, callback);
+}
+
 // Remove message from a chat room
 export const removeMessageFromRoom = (roomId, messageId) => {
    const messageRef = ref(db, `chat-rooms/${roomId}/messages/${messageId}`);
    return remove(messageRef);
 }
 
+export const chatRoomMessageRemoveListener = (roomId, callback) => {
+   const messageRef = ref(db, `chat-rooms/${roomId}/messages`);
+   onChildRemoved(messageRef, callback);
+}
+
 // Update (Edit) message from a chat room by given messageId
 export const updateMessage = (roomId, messageId, message) => {
-   const messageRef = ref(db, `chat-rooms/${roomId}/members/${messageId}`);
+   const messageRef = ref(db, `chat-rooms/${roomId}/messages/${messageId}`);
    return update(messageRef, message);
 }
 
+export const chatRoomMessageUpdateListener = (roomId, callback) => {
+   const messageRef = ref(db, `chat-rooms/${roomId}/messages`);
+   onChildChanged(messageRef, callback);
+}
