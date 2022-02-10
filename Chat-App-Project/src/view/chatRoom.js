@@ -3,19 +3,37 @@ import * as roomRepository from "../database/chatRoom";
 import * as userRepository from "../database/user";
 import * as userService from "../services/auth"
 
+/**
+ * Get elements from the html pages which will be used for dom manipulation
+*/
 const headerChatRoomName = document.getElementById("chat-room-name");
 const usersInfoPart = document.querySelector(".users-info-part");
 const messagesList = document.querySelector(".messages-list");
 const enteredText = document.getElementById("user-msg");
 const buttonSend = document.getElementById("send-msg");
 
-const data = { currentUser: {id: "", email: ""}, room: { id: "", title: ""}, message: null };
+/**
+ * Declare object which will keep information for the selected users
+ * from the modal form to be added to the new created room.
+ * It also keep information about the current user's email
+*/
+const data = {
+   currentUser: {id: "", email: ""},
+   room: { id: "", title: ""},
+   message: null
+};
+
+// Get the room id from the url
 data.room.id = new URLSearchParams(window.location.search).get("roomId");
+// If no room, redirect to the main chat rooms list page
 if(!data.room.id) {
    window.location.href = "/html/chatRoomsList.html";
 }
 
-authService.authListener(user => {
+/**
+ * Call the aut service to be sure that a user is authenticated
+*/
+authService.authListener((user) => {
    if(!user) {
       window.location.href = "/html/login.html";
       return;
@@ -23,9 +41,14 @@ authService.authListener(user => {
    data.currentUser.email = user.email;
 })
 
-userRepository.usersListener(users => {
+/**
+ * Call the user listener
+*/
+userRepository.usersListener((users) => {
    users.forEach(user => {
+      // get the user email
       const email = user.val().email;
+      // save the current user email
       if(email === data.currentUser.email && !data.currentUser.id) {
          data.currentUser.id = user.key;
          return;
@@ -33,30 +56,46 @@ userRepository.usersListener(users => {
    });
 })
 
+/**
+ * Call the user listener to change the room title when the chat room
+ * page is opened
+*/
 roomRepository.chatRoomTitleListener(data.room.id, title => {
    data.room.title = title.val();
    document.title = data.room.title;
    headerChatRoomName.innerText = data.room.title;
 })
 
-roomRepository.chatRoomMembersListener(data.room.id, members => {
+/**
+ * Call the chat room members listener
+ * Add the selected members from the modal
+ * form to the chat room page section
+*/
+roomRepository.chatRoomMembersListener(data.room.id, (members) => {
    const membersArray = Object.values(members.val());
+   // Check if the current user is not in the chat room
    if(!membersArray.includes(data.currentUser.email)) {
       window.location.href = "/html/chatRoomsList.html";
       roomRepository.addMemberToRoom(data.room.id, data.currentUser.email);
       return;
    }
-
+   // else the user is in the chat room
    usersInfoPart.innerHTML = "";
    const userInfo = document.createElement("p");
    userInfo.id = "users-room-info";
    userInfo.innerText = "Users in the room:";
    usersInfoPart.appendChild(userInfo);
-   membersArray.forEach(member => {
-      usersInfoPart.appendChild(createUserListItem(member));
+   // for each selected member create a list item and append it
+   // to the main section with users in the chat room page section
+   membersArray.forEach((member) => {
+      const userItemToAdd = createUserListItem(member);
+      usersInfoPart.appendChild(userItemToAdd);
    })
 })
 
+/**
+ * Template for creating a user list item
+*/
 const createUserListItem = (email) => {
    const listItem = document.createElement("div");
    listItem.classList.add("current-user");
@@ -64,9 +103,14 @@ const createUserListItem = (email) => {
    userInRoom.classList.add("user-in-room");
    userInRoom.innerText = `${email}`;
    listItem.appendChild(userInRoom);
+
+   // Return the list item
    return listItem;
 }
 
+/**
+ * Template for creating a message list item
+*/
 const createMessageListItem = (message) => {
   const listItem = document.createElement('li');
   listItem.classList.add("message-modal");
@@ -92,6 +136,7 @@ const createMessageListItem = (message) => {
   const msgOptions = document.createElement("div");
   msgOptions.classList.add("msg-options");
 
+  // Only the current user can edit and delete his own messages
   if(message.username === data.currentUser.email) {
       const editButton = document.createElement("button");
       editButton.classList.add("edit-msg-icon");
@@ -146,7 +191,8 @@ const createMessageListItem = (message) => {
   likeButton.appendChild(likes);
   likeButton.appendChild(likeIcon);
 
-  likeButton.addEventListener("click", event => {
+  // Add event listener to the like button
+  likeButton.addEventListener("click", (event) => {
      const { username, text, date } = message;
      const messageItem = document.getElementById(message.id);
      const messageLikes = messageItem.querySelector(".like-msg-icon > span");
@@ -169,7 +215,8 @@ const createMessageListItem = (message) => {
   dislikeButton.appendChild(dislikes)
   dislikeButton.appendChild(dislikeIcon);
 
-  dislikeButton.addEventListener("click", event => {
+  // Add event listener to the dislike button
+  dislikeButton.addEventListener("click", (event) => {
       const { username, text, date } = message;
       const messageItem = document.getElementById(message.id);
       const messageLikes = messageItem.querySelector(".like-msg-icon > span");
@@ -189,21 +236,31 @@ const createMessageListItem = (message) => {
   sectionItem.appendChild(thirdRowDiv);
   listItem.appendChild(sectionItem);
 
+  // Return the list item
   return listItem;
 }
 
-roomRepository.chatRoomMessageAddListener(data.room.id, message => {
+/**
+ * Create new message and display it
+*/
+roomRepository.chatRoomMessageAddListener(data.room.id, (message) => {
    const newMessage = createMessageListItem({ ...message.val(), id: message.key });
    messagesList.appendChild(newMessage);
    newMessage.scrollIntoView();
-})
+});
 
-roomRepository.chatRoomMessageRemoveListener(data.room.id, message => {
+/**
+ * Delete message calling the remove message listener
+*/
+roomRepository.chatRoomMessageRemoveListener(data.room.id, (message) => {
    const messageItem = document.getElementById(message.key);
    messageItem.remove();
 })
 
-roomRepository.chatRoomMessageUpdateListener(data.room.id, message => {
+/**
+ * Update message calling the update message listener
+*/
+roomRepository.chatRoomMessageUpdateListener(data.room.id, (message) => {
    const messageItem = document.getElementById(message.key);
    const messageText = messageItem.querySelector(".second-row-msg > span");
    messageText.innerText = message.val().text;
@@ -211,22 +268,28 @@ roomRepository.chatRoomMessageUpdateListener(data.room.id, message => {
    messageLikes.innerText = message.val().likes;
    const messageDislikes = messageItem.querySelector(".dislike-msg-btn > span");
    messageDislikes.innerText = message.val().dislikes;
-})
+});
 
+/**
+ * Add event listener to the send message button
+*/
 buttonSend.addEventListener("click", event => {
    const textValue = enteredText.value;
+   // If no message is entered, it cannot be sent
    if(!textValue) {
       return;
    }
 
+   // Create message object with current values
    const message = {
       username: data.currentUser.email,
       text: textValue,
-      date: new Date().toString().slice(4, 21),
+      date: new Date().toString().slice(4, 21), // // Fri Feb 11 2022 00:02:06 GMT+0200 (Eastern European Standard Time)
       likes: 0,
       dislikes: 0
    };
 
+   // If there is entered message
    if(data.message) {
       message.date = data.message.date;
       message.likes = data.message.likes;
@@ -239,6 +302,8 @@ buttonSend.addEventListener("click", event => {
    enteredText.value = "";
 })
 
-// Log out
+/**
+ *  Add functionality to log out
+*/
 const logoutBtn = document.getElementById("logout-btn");
-logoutBtn.addEventListener("click", event => userService.logout());
+logoutBtn.addEventListener("click", (event) => userService.logout());

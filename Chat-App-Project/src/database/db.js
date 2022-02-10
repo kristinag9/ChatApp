@@ -18,6 +18,7 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
+
 const app = initializeApp(firebaseConfig);
 // Get reference to the database
 export const db = getDatabase(app);
