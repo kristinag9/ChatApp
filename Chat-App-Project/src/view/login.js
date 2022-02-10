@@ -2,7 +2,7 @@ import * as userService from "../services/auth";
 
 userService.authListener((user) => {
    if(user) {
-      window.location = "/html/chatRoomsList.html";
+      window.location.href = "/html/chatRoomsList.html";
       // history.pushState({}, "Chat rooms", "/html/chatRoomsList.html");
    }
 });
