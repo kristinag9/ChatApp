@@ -46,7 +46,7 @@
    flex-direction: row;
 }
 
-#chat-room-name, span {
+#chat-room-name, #intro-msg {
    font-size: 24px;
    color: rgb(83, 59, 97);
    font-family: Comic Sans, Comic Sans MS, cursive;
@@ -114,7 +114,6 @@
    border-radius: 1.2rem;
    box-shadow: 5px 10px 18px rgb(116, 84, 134);
    height: 450px;
-
 }
 
 .messages-list {
@@ -149,7 +148,7 @@
 .first-row-msg {
    display: flex;
    flex-direction: row;
-   margin-top: 5px;
+   /* margin-top: 5px; */
    align-items: baseline;
    justify-content: space-between;
 }
@@ -157,7 +156,7 @@
 .msg-user-info {
    display: flex;
    flex-direction: row;
-   gap: 10px;
+   gap: 5px;
    justify-content: space-between;
 }
 
@@ -192,7 +191,7 @@ button {
 .second-row-msg {
    max-height: 50px;
    overflow-y: scroll;
-   overflow: auto;
+   overflow: hidden;
    align-self: flex-start;
 }
 
@@ -212,6 +211,13 @@ button {
    flex-direction: row;
    margin-top: 5px;
    align-items: baseline;
+}
+
+span {
+   font-size: 16px;
+   color: rgb(10, 10, 10);
+   padding: 5px;
+   text-shadow: 5px 5px 15px rgb(116, 84, 134);
 }
 
 .like-msg-icon, .dislike-msg-btn {

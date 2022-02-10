@@ -48,6 +48,10 @@ roomRepository.chatRoomMembersListener(data.room.id, members => {
    }
 
    usersInfoPart.innerHTML = "";
+   const userInfo = document.createElement("p");
+   userInfo.id = "users-room-info";
+   userInfo.innerText = "Users in the room:";
+   usersInfoPart.appendChild(userInfo);
    membersArray.forEach(member => {
       usersInfoPart.appendChild(createUserListItem(member));
    })
