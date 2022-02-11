@@ -162,11 +162,16 @@
 }
 
 .sender-name {
+   display: block;
+   width: 100px;
    padding-left: 10px;
    font-size: 18px;
    font-weight: bold;
    color: rgb(47, 44, 49);
    letter-spacing: normal;
+   overflow: hidden;
+   white-space: nowrap;
+   text-overflow: ellipsis;
 }
 
 .date {

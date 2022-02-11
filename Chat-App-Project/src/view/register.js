@@ -26,14 +26,14 @@ const registrationForm = document.querySelector(".register-form");
     if (!email.match("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")) {
       alert("Invalid email!");
       return;
-  }
+   }
 
    // Password validation
    // At least one upper case letter, (?=.*?[A-Z])
    // At least one lower case letter, (?=.*?[a-z])
    // At least one digit, (?=.*?[0-9])
    // At least one special character, (?=.*?[#?!@$%^&*-])
-   // Minimum eight in length .{8,} (with the anchors)
+   // Minimum eight in length .{6,} (with the anchors)
    if (password.length < 6 || !password.match("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$")) {
         alert('Weak password!');
         return;

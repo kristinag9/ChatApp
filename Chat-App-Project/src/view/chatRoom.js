@@ -284,7 +284,7 @@ buttonSend.addEventListener("click", event => {
    const message = {
       username: data.currentUser.email,
       text: textValue,
-      date: new Date().toString().slice(4, 21), // // Fri Feb 11 2022 00:02:06 GMT+0200 (Eastern European Standard Time)
+      date: new Date().toString().slice(4, 21), // Fri Feb 11 2022 00:02:06 GMT+0200 (Eastern European Standard Time)
       likes: 0,
       dislikes: 0
    };
